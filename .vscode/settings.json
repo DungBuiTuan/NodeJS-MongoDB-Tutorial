@@ -1,0 +1,5 @@
+{
+    "dotnetAcquisitionExtension.enableTelemetry": false,
+    "workbench.colorTheme": "Copilot Theme",
+    "workbench.iconTheme": "vscode-icons"
+}

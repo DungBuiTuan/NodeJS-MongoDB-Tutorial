@@ -1,0 +1,223 @@
+test> show dbs
+Test_MongoDB   40.00 KiB
+admin          40.00 KiB
+config         60.00 KiB
+local         152.00 KiB
+test> use Test_MongoDB
+switched to db Test_MongoDB
+//Insert One Record
+Test_MongoDB> db.Coures.insertOne({name:"MongoDB Tutorial",description:"Database",img:"b.jpg" })
+{
+  acknowledged: true,
+  insertedId: ObjectId("65087efdbcad82b0d4527827")      
+}
+Test_MongoDB> db.Coures.find()
+[
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  },
+  {
+    _id: ObjectId("65087efdbcad82b0d4527827"),
+    name: 'MongoDB Tutorial',
+    description: 'Database',
+    img: 'b.jpg'
+  }
+]
+//Insert many record
+Test_MongoDB> db.Coures.insertMany([{name: 'SQL Server Tutorial', description: 'Database', img: 'c.jpg'},  
+{name: 'MySQL Tutorial', description: 'Database', img: 'd.jpg'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6508805dbcad82b0d4527828"),
+    '1': ObjectId("6508805dbcad82b0d4527829")
+  }
+}
+
+//Select all Record
+Test_MongoDB> db.Coures.find()
+[
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  },
+  {
+    _id: ObjectId("65087efdbcad82b0d4527827"),
+    name: 'MongoDB Tutorial',
+    description: 'Database',
+    img: 'b.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527828"),
+    name: 'SQL Server Tutorial',
+    description: 'Database',
+    img: 'c.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527829"),
+    name: 'MySQL Tutorial',
+    description: 'Database',
+    img: 'd.jpg'
+  }
+]
+
+//Select all record and sort by name (1-asc)
+Test_MongoDB> db.Coures.find().sort({name:1})
+[
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  },
+  {
+    _id: ObjectId("65087efdbcad82b0d4527827"),
+    name: 'MongoDB Tutorial',
+    description: 'Database',
+    img: 'b.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527829"),
+    name: 'MySQL Tutorial',
+    description: 'Database',
+    img: 'd.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527828"),
+    name: 'SQL Server Tutorial',
+    description: 'Database',
+    img: 'c.jpg'
+  }
+]
+
+//Select all record and sort by name (1-desc)
+Test_MongoDB> db.Coures.find().sort({name:-1})
+[
+  {
+    _id: ObjectId("6508805dbcad82b0d4527828"),
+    name: 'SQL Server Tutorial',
+    description: 'Database',
+    img: 'c.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527829"),
+    name: 'MySQL Tutorial',
+    description: 'Database',
+    img: 'd.jpg'
+  },
+  {
+    _id: ObjectId("65087efdbcad82b0d4527827"),
+    name: 'MongoDB Tutorial',
+    description: 'Database',
+    img: 'b.jpg'
+  },
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  }
+]
+
+//Select 1 record,Limit(n) -> n = number record
+Test_MongoDB> db.Coures.find().limit(1)
+[
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  }
+]
+
+//Select 3 record
+Test_MongoDB> db.Coures.find().limit(3)
+[
+  {
+    _id: ObjectId("6494120813d649c4316a9f27"),
+    name: 'Basic React',
+    description: 'build a websie with ReactJS',
+    img: 'a.jpg'
+  },
+  {
+    _id: ObjectId("65087efdbcad82b0d4527827"),
+    name: 'MongoDB Tutorial',
+    description: 'Database',
+    img: 'b.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527828"),
+    name: 'SQL Server Tutorial',
+    description: 'Database',
+    img: 'c.jpg'
+  }
+]
+
+//Select 2 record and sort by name (1-desc)
+Test_MongoDB> db.Coures.find().sort({name:-1}).limit(2)
+[
+  {
+    _id: ObjectId("6508805dbcad82b0d4527828"),
+    name: 'SQL Server Tutorial',
+    description: 'Database',
+    img: 'c.jpg'
+  },
+  {
+    _id: ObjectId("6508805dbcad82b0d4527829"),
+    name: 'MySQL Tutorial',
+    description: 'Database',
+    img: 'd.jpg'
+  }
+]
+
+//Update
+db.Coures.updateOne(filter,update)
+db.Coures.updateOne({name:"MySQL Tutorial"},{$set:{img:"e.jpg"}}) //it will find object with name is MySQL Tutorial to update {$set:{img:"e.jpg"}}
+
+db.Coures.updateOne({name:"MySQL Tutorial"},{$unset:{img:"e.jpg"}})//it will find object with name is MySQL Tutorial to update {$unset:{img:"e.jpg"}} -> img will be remove
+
+db.Coures.updateMany({description:{exist:"Database"}},{$set:{img:"e.jpg"}}) //it will be find all of record have description :"Database" to update 
+
+//Delete
+db.Coures.deleteOne({Attribute:value}) //delete attribute at value
+db.Coures.deleteMany({Attribute:{$exist:{value}}}) //delete all attribute at the same value
+
+
+//Comparison operator
+$eq
+Matches values that are equal to a specified value.
+$gt
+Matches values that are greater than a specified value.
+$gte
+Matches values that are greater than or equal to a specified value.
+$in
+Matches any of the values specified in an array.
+$lt
+Matches values that are less than a specified value.
+$lte
+Matches values that are less than or equal to a specified value.
+$ne
+Matches all values that are not equal to a specified value.
+$nin
+Matches none of the values specified in an array.
+
+db.Coures.find({attribute:{$ne:value}})
+
+//Logical Operators
+$and
+Joins query clauses with a logical AND returns all documents that match the conditions of both clauses.
+$not
+Inverts the effect of a query expression and returns documents that do not match the query expression.
+$nor
+Joins query clauses with a logical NOR returns all documents that fail to match both clauses.
+$or
+Joins query clauses with a logical OR returns all documents that match the conditions of either clause.
+
+db.Coures.find({$AND: [{attribute1:value}], {attribute2:value}}) 'value can be equal $Comparison operators + value' it will find all record have all of attribute
+
+ 

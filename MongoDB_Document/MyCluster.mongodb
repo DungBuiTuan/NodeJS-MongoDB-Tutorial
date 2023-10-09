@@ -1,0 +1,57 @@
+// MongoDB Playground
+// Use Ctrl+Space insnamee a snippet or a string literal to trigger completions.
+
+// const database = 'MyCluster';
+// const collection = 'UserManagement';
+
+// Create a new database.
+use('MyCluster');
+
+// Create a new collection.
+db.createCollection('EmployeeManagement');
+
+db.UserManagement.insertMany([
+  { 'name': 'Nguyen Van A', 'gender': 'Female', 'age': 2, 'dob': new Date('2014-03-01T08:00:00Z') },
+  { 'name': 'Nguyen Van B', 'gender': 'Male', 'age': 1, 'dob': new Date('2014-03-01T09:00:00Z') },
+  { 'name': 'Nguyen Van C', 'gender': 'Male', 'age': 10, 'dob': new Date('2014-03-15T09:00:00Z') },
+  { 'name': 'Nguyen Van D', 'gender': 'Male', 'age':  20, 'dob': new Date('2014-04-04T11:21:39.736Z') },
+  { 'name': 'Nguyen Van E', 'gender': 'Male', 'age': 10, 'dob': new Date('2014-04-04T21:23:13.331Z') },
+  { 'name': 'Bui Tuan Dung', 'gender': 'Female', 'age': 5, 'dob': new Date('2015-06-04T05:08:13Z') },
+  { 'name': 'Bui Tuan A', 'gender': 'Male', 'age': 10, 'dob': new Date('2015-09-10T08:43:00Z') },
+  { 'name': 'Bui Tuan D', 'gender': 'Female', 'age': 5, 'dob': new Date('2016-02-06T20:20:13Z') },
+]);
+
+db.UserManagement.find();
+
+
+db.UserManagement.findOneAndUpdate({'name':"Bui Tuan D","name" : "Bui Tuan C"})
+// The prototype form to create a regular collection:
+/* db.createCollection( <name>,
+  {
+    capped: <boolean>,
+    autoIndexname: <boolean>,
+    size: <number>,
+    max: <number>,
+    storageEngine: <document>,
+    valnameator: <document>,
+    valnameationLevel: <string>,
+    valnameationAction: <string>,
+    indexOptionDefaults: <document>,
+    viewOn: <string>,
+    pipeline: <pipeline>,
+    collation: <document>,
+    writeConcern: <document>
+  }
+) */
+
+// The prototype form to create a time-series collection:
+/* db.createCollection( <name>,
+  {
+    timeseries: {
+      timeField: <string>,
+      metaField: <string>,
+      granularity: <string>
+    },
+    expireAfterSeconds: <number>
+  }
+) */
